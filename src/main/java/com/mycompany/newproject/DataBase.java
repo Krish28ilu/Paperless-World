@@ -50,4 +50,34 @@ public class DataBase {
         
     }
       
+      static void saveDoc(String id, String type, String time, String fileUrl) throws Exception {
+
+    Class.forName("com.mysql.jdbc.Driver");
+
+    Connection conn = DriverManager.getConnection(
+            url, "root", "root");
+
+    Statement stmt = conn.createStatement();
+
+    stmt.executeUpdate(
+        "insert into documentdetails values ('" + id + "','" + type + "','" + time + "','" + fileUrl + "')"
+    );
+
+    conn.close();
+}
+static ResultSet getDocument(String type) throws Exception {
+
+    Class.forName("com.mysql.jdbc.Driver");
+
+    Connection conn = DriverManager.getConnection(
+            url, "root", "root");
+
+    Statement stmt = conn.createStatement();
+
+    ResultSet rs = stmt.executeQuery(
+        "select * from documentdetails where type = '" + type + "'" );
+
+    return rs;
+}
+
 }
